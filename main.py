@@ -32,3 +32,5 @@ async def slack_events(request: Request):
 def handle_mention(event, say):
     thread_ts = event["ts"]
     say("호", thread_ts=thread_ts)
+
+#test

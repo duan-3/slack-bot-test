@@ -14,6 +14,7 @@ slack_app = App(
     token=os.environ["DUAN_BOT_TOKEN"],
     signing_secret=os.environ["DUAN_BOT_SIGNING_SECRET"]
 )
+app.include_router(duan_router, prefix="/duan")
 
 
 @app.get("/")

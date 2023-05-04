@@ -32,7 +32,7 @@ def handle_mention(event, say):
     thread_ts = event["ts"]
     say("호", thread_ts=thread_ts)
 
-@slack_app.view(callback_id="draw_submit")
+@slack_app.view("draw_submit")
 def handle_draw_submission(ack, body, client):
     # title = body["view"]["state"]["values"]["title_block"]["title_action"]["value"]
     # winner_num = body["view"]["state"]["values"]["winner_block"]["winner_action"]["value"]

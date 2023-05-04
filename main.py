@@ -36,25 +36,78 @@ def handle_mention(event, say):
 @slack_app.command("/draw")
 def draw_command(ack, body, client):
     ack()
-    print(body)
-    response = client.chat_postMessage(channel=body["channel_id"], blocks=[{
-            "type": "section",
-            "text": {
-                "type": "mrkdwn",
-                "text": "*무승뽑(무한 승재 뽑기)*"
+    view = {
+            "type": "modal",
+            "title": {
+                "type": "plain_text",
+                "text": "My App",
+                "emoji": True
             },
-            "accessory": {
-                "type": "button",
-                "text": {
-                    "type": "plain_text",
-                    "text": "뽑기",
-                    "emoji": True
+            "submit": {
+                "type": "plain_text",
+                "text": "Submit",
+                "emoji": True
+            },
+            "close": {
+                "type": "plain_text",
+                "text": "Cancel",
+                "emoji": True
+            },
+            "blocks": [
+                {
+                    "type": "header",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "Super Rapid Draw",
+                        "emoji": True
+                    }
                 },
-                "value": "click_me_123",
-                "action_id": "retry"
-            }
-        }])
-    print(response)
+                {
+                    "type": "input",
+                    "element": {
+                        "type": "plain_text_input",
+                        "action_id": "plain_text_input-action"
+                    },
+                    "label": {
+                        "type": "plain_text",
+                        "text": "무엇을 뽑아 볼까요",
+                        "emoji": True
+                    }
+                },
+                {
+                    "type": "input",
+                    "element": {
+                        "type": "number_input",
+                        "is_decimal_allowed": True,
+                        "action_id": "number_input-action"
+                    },
+                    "label": {
+                        "type": "plain_text",
+                        "text": "당첨자 수",
+                        "emoji": True
+                    }
+                },
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": ":마감:마감시간"
+                    },
+                    "accessory": {
+                        "type": "timepicker",
+                        "initial_time": "13:37",
+                        "placeholder": {
+                            "type": "plain_text",
+                            "text": "Select time",
+                            "emoji": True
+                        },
+                        "action_id": "timepicker-action"
+                    }
+                }
+            ]
+        }
+    trigger_id = body["trigger_id"]
+    client.views_open(trigger_id=trigger_id, view=view)
 
 
 

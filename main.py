@@ -32,13 +32,13 @@ def handle_mention(event, say):
     thread_ts = event["ts"]
     say("호", thread_ts=thread_ts)
 
-@slack_app.view("draw_submit")
+@slack_app.view(callback_id="draw_submit")
 def handle_draw_submission(ack, body, client):
     # title = body["view"]["state"]["values"]["title_block"]["title_action"]["value"]
     # winner_num = body["view"]["state"]["values"]["winner_block"]["winner_action"]["value"]
     # timeout = body["view"]["state"]["values"]["time_block"]["time_action"]["value"]
     test = body["view"]
-    channel_id = body["channel"]
+    channel_id = body["channel"]["id"]
     client.chat_postMessage(
         channel=channel_id,
         # text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"

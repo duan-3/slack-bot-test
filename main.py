@@ -46,6 +46,7 @@ def handle_draw_submission(ack, body, client):
     print("body", body)
     ack()
 
+
 #슬래시 커맨드
 @slack_app.command("/draw")
 def draw_command(ack, body, client):

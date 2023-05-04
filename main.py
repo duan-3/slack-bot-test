@@ -31,7 +31,8 @@ def handle_mention(event, say):
 
 @slack_app.message("TEST")
 def test_message(event, say):
-    say("Yeah")
+    channel = event["channel"]
+    say("Yeah", channel=channel)
 
 @slack_app.message("?무승뽑")
 def random_seungjae(event, say):

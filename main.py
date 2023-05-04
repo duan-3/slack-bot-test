@@ -38,37 +38,37 @@ def test_message(event, say):
     say("Yeah", channel=channel)
 
 @slack_app.message("?무승뽑")
-def random_seungjae(event, say):
-    response = client.chat_postMessage(
-        channel=event["channel"],
-        blocks=[
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "*무승뽑(무한 승재 뽑기)*"
-                },
-                "accessory": {
-                    "type": "button",
-                    "text": {
-                        "type": "plain_text",
-                        "text": "뽑기",
-                        "emoji": True
-                    },
-                    "value": "click_me_123",
-                    "action_id": "retry"
-                }
+def random_seungjae(client, message):
+    channel=message["channel"],
+    blocks=[
+        {
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "*무승뽑(무한 승재 뽑기)*"
             },
-            {
-                "type": "section",
+            "accessory": {
+                "type": "button",
                 "text": {
                     "type": "plain_text",
-                    "text": ":블루승재::저승재움짤::프링글승재::레드승재::페페승재::아바타승재::타노승재움짤::광대승재::승재::seungjyp::핑크승재::안경승재::짱구승재:",
+                    "text": "뽑기",
                     "emoji": True
-                }
+                },
+                "value": "click_me_123",
+                "action_id": "retry"
             }
-        ]
-    )
+        },
+        {
+            "type": "section",
+            "text": {
+                "type": "plain_text",
+                "text": ":블루승재::저승재움짤::프링글승재::레드승재::페페승재::아바타승재::타노승재움짤::광대승재::승재::seungjyp::핑크승재::안경승재::짱구승재:",
+                "emoji": True
+            }
+        }
+    ]
+    client.chat.postMsaage(channel=channel, blocks=blocks)
+
 
 # @slack_app.action("retry")
 # def get_reseungjae(ack, say):

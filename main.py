@@ -110,9 +110,6 @@ def draw_command(ack, body, client):
     client.views_open(trigger_id=trigger_id, view=view)
 
 
-
-
-
 #승테스트
 @slack_app.message("TEST")
 def test_message(event, say):

@@ -34,13 +34,15 @@ def handle_mention(event, say):
 
 @slack_app.view("draw_submit")
 def handle_draw_submission(ack, body, client):
-    title = body["view"]["state"]["values"]["title_block"]["title_action"]["value"]
-    winner_num = body["view"]["state"]["values"]["winner_block"]["winner_action"]["value"]
-    timeout = body["view"]["state"]["values"]["time_block"]["time_action"]["value"]
+    # title = body["view"]["state"]["values"]["title_block"]["title_action"]["value"]
+    # winner_num = body["view"]["state"]["values"]["winner_block"]["winner_action"]["value"]
+    # timeout = body["view"]["state"]["values"]["time_block"]["time_action"]["value"]
+    test = body["view"]
     channel_id = body["channel_id"]
     client.chat_postMessage(
         channel=channel_id,
-        text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
+        # text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
+        text=f"view -> {test}"
     )
     ack()
 

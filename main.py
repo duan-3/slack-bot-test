@@ -37,7 +37,7 @@ def handle_mention(event, say):
 def draw_command(ack, body, logger):
     ack()
     logger.info(body)
-
+    print(body)
 
 
 

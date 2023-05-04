@@ -42,7 +42,7 @@ def handle_draw_submission(ack, body, client):
     # client.chat_postMessage(
     #     text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
     # )
-    channel_id = body["trigger_id"]
+    channel_id = body["view"]["trigger_channel_id"]
     client.chat_postMessage(channel=channel_id, text="Hello world!")
     ack()
 
@@ -51,6 +51,7 @@ def handle_draw_submission(ack, body, client):
 @slack_app.command("/draw")
 def draw_command(ack, body, client):
     ack()
+    trigger_channel_id = body["channel_id"]
     view = {
             "type": "modal",
             "callback_id": "draw_submit",
@@ -123,7 +124,8 @@ def draw_command(ack, body, client):
                         "action_id": "time-action"
                     }
                 }
-            ]
+            ],
+            "trigger_channel_id": trigger_channel_id
         }
     trigger_id = body["trigger_id"]
     client.views_open(trigger_id=trigger_id, view=view)

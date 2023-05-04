@@ -16,7 +16,6 @@ slack_app = App(
 )
 app.include_router(duan_router, prefix="/duan")
 
-
 @app.get("/")
 async def root():
     return Response

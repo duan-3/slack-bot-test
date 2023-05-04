@@ -2,6 +2,7 @@ from fastapi import FastAPI, requests, Request, Header, APIRouter
 from starlette.responses import Response
 from slack_bolt import App
 from slack_bolt.adapter.fastapi import SlackRequestHandler
+from slack_sdk import WebClient
 import os
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context
@@ -11,6 +12,8 @@ slack_app = App(
     token=os.environ["DUAN_BOT_TOKEN"],
     signing_secret=os.environ["DUAN_BOT_SIGNING_SECRET"]
 )
+client = WebClient(token=os.environ["DUAN_BOT_TOKEN"])
+
 @app.get("/")
 async def root():
     return Response
@@ -36,35 +39,36 @@ def test_message(event, say):
 
 @slack_app.message("?무승뽑")
 def random_seungjae(event, say):
-    channel = event["channel"]
-    blocks = [
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "*무승뽑(무한 승재 뽑기)*"
-			},
-			"accessory": {
-				"type": "button",
-				"text": {
-					"type": "plain_text",
-					"text": "뽑기",
-					"emoji": True
-				},
-				"value": "click_me_123",
-				"action_id": "retry"
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "plain_text",
-				"text": ":블루승재::저승재움짤::프링글승재::레드승재::페페승재::아바타승재::타노승재움짤::광대승재::승재::seungjyp::핑크승재::안경승재::짱구승재:",
-				"emoji": True
-			}
-		}
-	]
-    say(blocks=blocks, channel=channel)
+    response = client.chat_postMessage(
+        channel=event["channel"],
+        blocks=[
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*무승뽑(무한 승재 뽑기)*"
+                },
+                "accessory": {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "뽑기",
+                        "emoji": True
+                    },
+                    "value": "click_me_123",
+                    "action_id": "retry"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "plain_text",
+                    "text": ":블루승재::저승재움짤::프링글승재::레드승재::페페승재::아바타승재::타노승재움짤::광대승재::승재::seungjyp::핑크승재::안경승재::짱구승재:",
+                    "emoji": True
+                }
+            }
+        ]
+    )
 
 # @slack_app.action("retry")
 # def get_reseungjae(ack, say):

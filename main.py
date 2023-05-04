@@ -22,7 +22,7 @@ async def root():
 
 
 # 슬랙 이벤트 수신
-@duan_router.post("/slack/events")
+@app.post("/slack/events")
 async def slack_events(request: Request):
     handler = SlackRequestHandler(slack_app)
     return await handler.handle(request)

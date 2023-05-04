@@ -37,7 +37,7 @@ def handle_mention(event, say):
 def draw_command(ack, body, client):
     ack()
     print(body)
-    client.chat_postMessage(channel=body["channel_id"], blocks=[{
+    response = client.chat_postMessage(channel=body["channel_id"], blocks=[{
             "type": "section",
             "text": {
                 "type": "mrkdwn",
@@ -54,6 +54,7 @@ def draw_command(ack, body, client):
                 "action_id": "retry"
             }
         }])
+    print(response)
 
 
 

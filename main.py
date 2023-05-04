@@ -36,6 +36,7 @@ def test_message(event, say):
 
 @slack_app.message("?무승뽑")
 def random_seungjae(event, say):
+    channel = event["channel"]
     blocks = [
 		{
 			"type": "section",
@@ -63,7 +64,7 @@ def random_seungjae(event, say):
 			}
 		}
 	]
-    say(blocks=blocks)
+    say(blocks=blocks, channel=channel)
 
 # @slack_app.action("retry")
 # def get_reseungjae(ack, say):

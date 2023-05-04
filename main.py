@@ -39,9 +39,9 @@ def handle_draw_submission(ack, body, client):
     # timeout = body["view"]["state"]["values"]["time_block"]["time_action"]["value"]
     test = body["view"]
     # channel_id = body["channel"]["id"]
-    client.chat_postMessage(
-        # text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
-    )
+    # client.chat_postMessage(
+    #     text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
+    # )
     print(test)
     print("body", body)
     ack()

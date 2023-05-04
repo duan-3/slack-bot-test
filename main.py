@@ -37,10 +37,10 @@ def test_message(event, say):
     channel = event["channel"]
     say("Yeah", channel=channel)
 
-@slack_app.message("?무승뽑")
+@slack_app.message("무승뽑")
 def random_seungjae(client, message):
-    channel=message["channel"]
-    blocks=[
+    channel = message["channel"]
+    blocks = [
         {
             "type": "section",
             "text": {

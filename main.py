@@ -67,7 +67,7 @@ def random_seungjae(client, message):
             }
         }
     ]
-    client.chat.postMsaage(channel=channel, blocks=blocks)
+    client.chat.postMessage(channel=channel, blocks=blocks)
 
 
 # @slack_app.action("retry")

@@ -42,8 +42,10 @@ def handle_draw_submission(ack, body, client):
     # client.chat_postMessage(
     #     text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
     # )
-    print(test)
-    print("body", body)
+    trigger_id = body["trigger_id"]
+    response = client.conversations_history(channel=trigger_id, limit=1)
+    channel_id = response["messages"][0]["channel"]
+    client.chat_postMessage(channel=channel_id, text="Hello world!")
     ack()
 
 

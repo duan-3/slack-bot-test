@@ -32,7 +32,18 @@ def handle_mention(event, say):
     thread_ts = event["ts"]
     say("호", thread_ts=thread_ts)
 
+#슬래시 커맨드
+@slack_app.command("/draw")
+def draw_command(ack, body, logger):
+    ack()
+    logger.info(body)
 
+
+
+
+
+
+#승테스트
 @slack_app.message("TEST")
 def test_message(event, say):
     channel = event["channel"]

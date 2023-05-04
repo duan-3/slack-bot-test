@@ -34,10 +34,26 @@ def handle_mention(event, say):
 
 #슬래시 커맨드
 @slack_app.command("/draw")
-def draw_command(ack, body, logger):
+def draw_command(ack, body, client):
     ack()
-    logger.info(body)
     print(body)
+    client.chat_postMessage(channel=body["channel_id"], block=[{
+            "type": "section",
+            "text": {
+                "type": "mrkdwn",
+                "text": "*무승뽑(무한 승재 뽑기)*"
+            },
+            "accessory": {
+                "type": "button",
+                "text": {
+                    "type": "plain_text",
+                    "text": "뽑기",
+                    "emoji": True
+                },
+                "value": "click_me_123",
+                "action_id": "retry"
+            }
+        }])
 
 
 

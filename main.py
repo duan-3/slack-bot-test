@@ -32,12 +32,25 @@ def handle_mention(event, say):
     thread_ts = event["ts"]
     say("호", thread_ts=thread_ts)
 
+@slack_app.view("draw_submit")
+def handle_draw_submission(ack, body, client):
+    title = body["view"]["state"]["values"]["title_block"]["title_action"]["value"]
+    winner_num = body["view"]["state"]["values"]["winner_block"]["winner_action"]["value"]
+    timeout = body["view"]["state"]["values"]["time_block"]["time_action"]["value"]
+    channel_id = body["channel_id"]
+    client.chat_postMessage(
+        channel=channel_id,
+        text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
+    )
+    ack()
+
 #슬래시 커맨드
 @slack_app.command("/draw")
 def draw_command(ack, body, client):
     ack()
     view = {
             "type": "modal",
+            "callback_id": "draw_submit",
             "title": {
                 "type": "plain_text",
                 "text": "My App",
@@ -64,9 +77,10 @@ def draw_command(ack, body, client):
                 },
                 {
                     "type": "input",
+                    "block_id": "title_block",
                     "element": {
                         "type": "plain_text_input",
-                        "action_id": "plain_text_input-action"
+                        "action_id": "title-action"
                     },
                     "label": {
                         "type": "plain_text",
@@ -76,10 +90,11 @@ def draw_command(ack, body, client):
                 },
                 {
                     "type": "input",
+                    "block_id": "winner_block",
                     "element": {
                         "type": "number_input",
                         "is_decimal_allowed": True,
-                        "action_id": "number_input-action"
+                        "action_id": "winner-action"
                     },
                     "label": {
                         "type": "plain_text",
@@ -89,6 +104,7 @@ def draw_command(ack, body, client):
                 },
                 {
                     "type": "section",
+                    "block_id": "time_block",
                     "text": {
                         "type": "mrkdwn",
                         "text": ":마감:마감시간"
@@ -101,13 +117,14 @@ def draw_command(ack, body, client):
                             "text": "Select time",
                             "emoji": True
                         },
-                        "action_id": "timepicker-action"
+                        "action_id": "time-action"
                     }
                 }
             ]
         }
     trigger_id = body["trigger_id"]
     client.views_open(trigger_id=trigger_id, view=view)
+
 
 
 #승테스트

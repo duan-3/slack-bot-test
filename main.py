@@ -38,12 +38,12 @@ def handle_draw_submission(ack, body, client):
     # winner_num = body["view"]["state"]["values"]["winner_block"]["winner_action"]["value"]
     # timeout = body["view"]["state"]["values"]["time_block"]["time_action"]["value"]
     test = body["view"]
-    channel_id = body["channel"]["id"]
+    # channel_id = body["channel"]["id"]
     client.chat_postMessage(
-        channel=channel_id,
         # text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
-        text=f"view -> {test}"
     )
+    print(test)
+    print("body", body)
     ack()
 
 #슬래시 커맨드

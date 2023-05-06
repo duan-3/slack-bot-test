@@ -44,7 +44,6 @@ def handle_draw_submission(ack, body, client):
         text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
     )
     print(body)
-    # client.chat_postMessage(channel=channel_id, text="Hello world!")
     ack()
 
 
@@ -164,7 +163,7 @@ def random_seungjae(client, message):
             "type": "section",
             "text": {
                 "type": "plain_text",
-                "text": ":블루승재::저승재움짤::프링글승재::레드승재::페페승재::아바타승재::타노승재움짤::광대승재::승재::seungjyp::핑크승재::안경승재::짱구승재:",
+                "text": ":블루승재::저승재움짤::프링글승재::레드승재::페페승재::아바타승재::타노승재움짤::광대승재::승재::seungjyp::핑크승재::안경승재::짱구승재::쫄보승재:",
                 "emoji": True
             }
         }
@@ -173,8 +172,9 @@ def random_seungjae(client, message):
 
 
 @slack_app.action("retry")
-def get_reseungjae(ack, say):
+def get_reseungjae(ack, body, say):
     ack()
+    print(body)
     sjs = [":블루승재:", ":저승재움짤:", ":프링글승재:", ":레드승재:", ":페페승재:", ":아바타승재:", ":타노승재움짤:", ":광대승재:", ":승재:", ":seungjyp:", ":핑크승재:", ":안경승재:", ":짱구승재:"]
     seungjae = random.choice(sjs)
     say(f"{seungjae}")

@@ -172,12 +172,45 @@ def random_seungjae(client, message):
 
 
 @slack_app.action("retry")
-def get_reseungjae(ack, body, say):
+def get_reseungjae(ack, body):
     ack()
     print(body)
+    ts = body['container']['message_ts']
+    channel_id = body['container']['channel_id']
     sjs = [":블루승재:", ":저승재움짤:", ":프링글승재:", ":레드승재:", ":페페승재:", ":아바타승재:", ":타노승재움짤:", ":광대승재:", ":승재:", ":seungjyp:", ":핑크승재:", ":안경승재:", ":짱구승재:"]
     seungjae = random.choice(sjs)
-    say(f"{seungjae}")
+    client.chat_update(
+        channel=channel_id,
+        ts=ts,
+        blocks=[
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "*무승뽑(무한 승재 뽑기)*"
+                },
+                "accessory": {
+                    "type": "button",
+                    "text": {
+                        "type": "plain_text",
+                        "text": "뽑기",
+                        "emoji": True
+                    },
+                    "value": "click_me_123",
+                    "action_id": "retry"
+                }
+            },
+            {
+                "type": "section",
+                "text": {
+                    "type": "plain_text",
+                    "text": f"{seungjae}",
+                    "emoji": True
+                }
+            }
+        ]
+    )
+    # say(f"{seungjae}")
 
 
 app.include_router(duan_router, prefix="/duan")

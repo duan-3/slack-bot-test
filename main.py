@@ -42,7 +42,7 @@ def handle_draw_submission(ack, body, client):
     # client.chat_postMessage(
     #     text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
     # )
-    channel_id = body["view"]["trigger_channel_id"]
+    channel_id = body["view"]["private_metadata"]
     client.chat_postMessage(channel=channel_id, text="Hello world!")
     ack()
 
@@ -125,9 +125,9 @@ def draw_command(ack, body, client):
                     }
                 }
             ],
-            "trigger_channel_id": trigger_channel_id
+            "private_metadata": trigger_channel_id
         }
-    trigger_id = body["trigger_id"]
+    trigger_id = body["private_metadata"]
     client.views_open(trigger_id=trigger_id, view=view)
 
 

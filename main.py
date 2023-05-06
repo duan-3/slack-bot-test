@@ -34,17 +34,16 @@ def handle_mention(event, say):
 
 @slack_app.view("draw_submit")
 def handle_draw_submission(ack, body, client):
-    # title = body["view"]["state"]["values"]["title_block"]["title_action"]["value"]
-    # winner_num = body["view"]["state"]["values"]["winner_block"]["winner_action"]["value"]
-    # timeout = body["view"]["state"]["values"]["time_block"]["time_action"]["value"]
-    test = body["view"]
-    # channel_id = body["channel"]["id"]
-    # client.chat_postMessage(
-    #     text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
-    # )
     channel_id = body["view"]["private_metadata"]
-    print(channel_id)
-    client.chat_postMessage(channel=channel_id, text="Hello world!")
+
+    title = body["view"]["state"]["values"]["title_block"]["title_action"]["value"]
+    winner_num = body["view"]["state"]["values"]["winner_block"]["winner_action"]["value"]
+    timeout = body["view"]["state"]["values"]["time_block"]["time_action"]["value"]
+    client.chat_postMessage(
+        channel=channel_id,
+        text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
+    )
+    # client.chat_postMessage(channel=channel_id, text="Hello world!")
     ack()
 
 
@@ -129,7 +128,6 @@ def draw_command(ack, body, client):
             "private_metadata": trigger_channel_id
         }
     trigger_id = body["trigger_id"]
-    print(trigger_id)
     client.views_open(trigger_id=trigger_id, view=view)
 
 

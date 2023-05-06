@@ -36,13 +36,14 @@ def handle_mention(event, say):
 def handle_draw_submission(ack, body, client):
     channel_id = body["view"]["private_metadata"]
 
-    title = body["view"]["state"]["values"]["title_block"]["title_action"]["value"]
-    winner_num = body["view"]["state"]["values"]["winner_block"]["winner_action"]["value"]
-    timeout = body["view"]["state"]["values"]["time_block"]["time_action"]["value"]
-    client.chat_postMessage(
-        channel=channel_id,
-        text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
-    )
+    # title = body["view"]["state"]["values"]["title_block"]["title_action"]["value"]
+    # winner_num = body["view"]["state"]["values"]["winner_block"]["winner_action"]["value"]
+    # timeout = body["view"]["state"]["values"]["time_block"]["time_action"]["value"]
+    # client.chat_postMessage(
+    #     channel=channel_id,
+    #     text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
+    # )
+    print(body)
     # client.chat_postMessage(channel=channel_id, text="Hello world!")
     ack()
 

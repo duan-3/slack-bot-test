@@ -128,6 +128,7 @@ def draw_command(ack, body, client):
             "private_metadata": trigger_channel_id
         }
     trigger_id = body["trigger_id"]
+    print(trigger_id)
     client.views_open(trigger_id=trigger_id, view=view)
 
 

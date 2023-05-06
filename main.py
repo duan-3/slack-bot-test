@@ -43,6 +43,7 @@ def handle_draw_submission(ack, body, client):
     #     text=f"{title}\n:hooray:당첨자 수 : {winner_num}\n:마감:마감시간 : {timeout}"
     # )
     channel_id = body["view"]["private_metadata"]
+    print(channel_id)
     client.chat_postMessage(channel=channel_id, text="Hello world!")
     ack()
 
